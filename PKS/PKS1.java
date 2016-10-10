@@ -1,5 +1,5 @@
 
-public class Main {
+public class PKS1 {
 	static int INF = Integer.MAX_VALUE/2;
 	static int N=1, n; 							// количество кластеров, вершин
 	static int[][] matrix1, dist; 				// матрица смежности, достижимости
