@@ -23,11 +23,9 @@ public class PZKS1 {
 		
 		if(!s.isEmpty()){
 			if(p.matcher(s).find()){
-				//System.err.println("Forbidden character");
-				//return;
 				GUI.result.setText("Forbidden character");
 			}
-			if(s.startsWith(")") || s.startsWith("*") || s.startsWith("/") || s.startsWith("+") || s.startsWith(",")){
+			if(s.startsWith(")") || s.startsWith("*") || s.startsWith("/") || s.startsWith("+") || s.startsWith(".")){
 				GUI.result.setText("Wrong character at the beginning");
 				//return;
 			}
@@ -54,39 +52,37 @@ public class PZKS1 {
 			for(int i=0; i<s.length()-1; i++){
 				if(Character.isLetter(s.charAt(i))  && (s.charAt(i+1)=='.' || s.charAt(i+1)=='(')){
 					GUI.result.setText("Wrong character after letter. Position "+(i+2));
-					//return;
+					return;
 				}
 				if(Character.isDigit(s.charAt(i)) && (s.charAt(i+1)=='(' || Character.isLetter(s.charAt(i+1)))){
 					GUI.result.setText("Wrong character after digit. Position "+(i+2));
-					//return;
+					return;
 				}
 				if(compare(s.charAt(i), new char[]{'+', '-', '*', '/'}) && compare(s.charAt(i+1), new char[]{')', '+', '-', '*', '/', '.'})){
 					GUI.result.setText("Wrong character after operation. Position "+(i+2));
-					//return;
+					return;
 				}
 				if(s.charAt(i)=='(' && compare(s.charAt(i+1), new char[]{'+', '*', '/', ')', '.'})){
 					GUI.result.setText("Wrong character after opening bracket. Position "+(i+2));
-					//return;
+					return;
 				}
 				if(s.charAt(i)==')' && (compare(s.charAt(i+1), new char[]{'(', '.'}) || Character.isDigit(s.charAt(i+1)) || Character.isLetter(s.charAt(i+1)))){
 					GUI.result.setText("Wrong character after closing bracket. Position "+(i+2));
-					//return;
+					return;
 				}
 				if(s.charAt(i)=='.' && (compare(s.charAt(i+1), new char[]{'+', '-', '*', '/', '(', ')', '.'}) || Character.isLetter(s.charAt(i+1)))){
 					GUI.result.setText("Wrong character after comma. Position "+(i+2));
-					//return;
+					return;
 				}
-				//change to switch & add a default "OK" case
+				GUI.result.setText("The expression is valid");
 			}
 
 			if(openBr!=closBr){
 				GUI.result.setText("Unequal number of opening and closing brackets");
-				//return;
 			}
 			
 			boolean correct = v.validate(s);
-	        System.out.println("Brackets used " + (correct ? "" : "not") + "right");
-			//GUI.result.setText("Correct");
+			GUI.result.setText(GUI.result.getText() + "\nBrackets are used " + (correct ? "" : "not ") + "right");
 		}
 	}
 }
